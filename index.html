@@ -1,0 +1,1524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="theme-color" content="#061E58">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>GIVA Store Experience | Product & Business Requirements</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Figtree:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --giva-pink: #E9718B;
+      --giva-pink-light: #FDD0DA;
+      --giva-pink-hover: #d4607a;
+      --giva-navy: #061E58;
+      --giva-beige: #ECD9C2;
+      --giva-rose: #FFD1D1;
+      --giva-lavender: #928BF1;
+      --giva-green: #EAFBEA;
+      --giva-green-text: #2d7a2d;
+      --giva-dark: #121212;
+      --giva-white: #FFFFFF;
+      --giva-gray: #f8f6f4;
+      --giva-gray-mid: #e8e4e0;
+      --giva-text-secondary: #6b6b6b;
+      --radius: 8px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+      --shadow-lg: 0 8px 32px rgba(0,0,0,0.10);
+      --shadow-xl: 0 16px 48px rgba(0,0,0,0.12);
+      --section-pad: 80px;
+      --container-pad: 24px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      font-family: 'Lato', 'Figtree', sans-serif;
+      color: var(--giva-dark);
+      background: var(--giva-white);
+      line-height: 1.7;
+      font-size: 16px;
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; height: auto; }
+
+    /* ── Container ── */
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 var(--container-pad); }
+
+    /* ── Top Nav Bar ── */
+    .top-bar {
+      background: var(--giva-navy);
+      color: var(--giva-white);
+      text-align: center;
+      padding: 10px var(--container-pad);
+      font-size: 11px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      font-weight: 400;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .top-bar span { opacity: 0.5; margin: 0 8px; }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(165deg, var(--giva-white) 0%, #fef7f8 30%, var(--giva-pink-light) 100%);
+      padding: 80px var(--container-pad) 64px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -120px;
+      right: -120px;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(233,113,139,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: var(--giva-pink);
+      color: var(--giva-white);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-family: 'Figtree', 'Lato', sans-serif;
+      font-size: clamp(32px, 6vw, 64px);
+      font-weight: 700;
+      line-height: 1.08;
+      color: var(--giva-navy);
+      margin-bottom: 20px;
+      letter-spacing: -1px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--giva-pink);
+    }
+    .hero-subtitle {
+      font-size: clamp(16px, 2.5vw, 19px);
+      color: var(--giva-text-secondary);
+      max-width: 640px;
+      line-height: 1.6;
+      font-weight: 300;
+      margin-bottom: 32px;
+    }
+    .hero-meta {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: var(--giva-text-secondary);
+    }
+    .hero-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .hero-meta-item svg { flex-shrink: 0; }
+
+    /* ── Section Styles ── */
+    section { padding: var(--section-pad) 0; }
+    section.alt { background: var(--giva-gray); }
+    section.dark { background: var(--giva-navy); color: var(--giva-white); }
+    section.pink { background: linear-gradient(135deg, #fef7f8 0%, var(--giva-pink-light) 100%); }
+    section.beige { background: linear-gradient(135deg, #faf6f2 0%, var(--giva-beige) 100%); }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--giva-pink);
+      margin-bottom: 12px;
+    }
+    section.dark .section-label { color: var(--giva-rose); }
+
+    .section-title {
+      font-family: 'Figtree', 'Lato', sans-serif;
+      font-size: clamp(26px, 5vw, 42px);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--giva-navy);
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+    }
+    section.dark .section-title { color: var(--giva-white); }
+
+    .section-subtitle {
+      font-size: clamp(15px, 2.2vw, 17px);
+      color: var(--giva-text-secondary);
+      max-width: 640px;
+      line-height: 1.6;
+      font-weight: 300;
+    }
+    section.dark .section-subtitle { color: rgba(255,255,255,0.65); }
+
+    /* ── TOC ── */
+    .toc {
+      background: var(--giva-white);
+      border: 1px solid var(--giva-gray-mid);
+      border-radius: var(--radius-lg);
+      padding: 28px 28px;
+      margin: -32px var(--container-pad) 0;
+      max-width: 1080px;
+      position: relative;
+      z-index: 2;
+      box-shadow: var(--shadow-lg);
+    }
+    @media (min-width: 769px) {
+      .toc { margin: -32px auto 0; }
+    }
+    .toc h3 {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--giva-pink);
+      margin-bottom: 16px;
+    }
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 8px;
+    }
+    .toc-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: var(--radius);
+      text-decoration: none;
+      color: var(--giva-dark);
+      font-size: 13px;
+      font-weight: 400;
+      transition: all 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .toc-item:hover, .toc-item:active {
+      background: var(--giva-pink-light);
+      color: var(--giva-pink);
+    }
+    .toc-num {
+      font-family: 'Figtree', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--giva-pink);
+      opacity: 0.4;
+      min-width: 26px;
+    }
+
+    /* ── Timeline ── */
+    .timeline {
+      position: relative;
+      padding-left: 36px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 13px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--giva-pink), var(--giva-pink-light), transparent);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 40px;
+    }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .timeline-dot {
+      position: absolute;
+      left: -30px;
+      top: 4px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--giva-pink);
+      border: 3px solid var(--giva-white);
+      box-shadow: 0 0 0 2px var(--giva-pink);
+    }
+    .timeline-time {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--giva-pink);
+      margin-bottom: 6px;
+    }
+    .timeline-title {
+      font-family: 'Figtree', sans-serif;
+      font-size: clamp(17px, 2.5vw, 20px);
+      font-weight: 600;
+      color: var(--giva-navy);
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+    .timeline-desc {
+      font-size: 15px;
+      color: var(--giva-text-secondary);
+      line-height: 1.65;
+    }
+    .timeline-result {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .timeline-result.fail { background: #fff0f0; color: #c0392b; }
+    .timeline-result.partial { background: #fff8e6; color: #b8860b; }
+
+    /* ── Image Gallery ── */
+    .gallery {
+      display: grid;
+      gap: 12px;
+      margin-top: 32px;
+    }
+    .gallery-item {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--giva-gray);
+      aspect-ratio: 9/16;
+      position: relative;
+      box-shadow: var(--shadow-md);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .gallery-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 36px 14px 14px;
+      background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
+      color: var(--giva-white);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      line-height: 1.4;
+    }
+    .gallery-hero { grid-template-columns: 1fr 1fr; }
+    .gallery-3col { grid-template-columns: repeat(3, 1fr); }
+    .gallery-2col { grid-template-columns: repeat(2, 1fr); }
+    .gallery-item.landscape { aspect-ratio: 4/3; }
+    .gallery-item.square { aspect-ratio: 1; }
+
+    /* ── Swipeable image strip (mobile) ── */
+    .image-strip {
+      display: none;
+    }
+
+    /* ── Persona Cards ── */
+    .persona-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 32px;
+    }
+    .persona-card {
+      background: var(--giva-white);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      box-shadow: var(--shadow-md);
+      border-top: 4px solid var(--giva-pink);
+    }
+    .persona-card:nth-child(2) { border-top-color: var(--giva-lavender); }
+    .persona-card:nth-child(3) { border-top-color: var(--giva-beige); }
+    .persona-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--giva-pink);
+      margin-bottom: 10px;
+    }
+    .persona-card:nth-child(2) .persona-tag { color: var(--giva-lavender); }
+    .persona-card:nth-child(3) .persona-tag { color: #b8860b; }
+    .persona-name {
+      font-family: 'Figtree', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--giva-navy);
+      margin-bottom: 4px;
+    }
+    .persona-demo {
+      font-size: 13px;
+      color: var(--giva-text-secondary);
+      margin-bottom: 14px;
+      font-weight: 300;
+    }
+    .persona-story {
+      font-size: 14px;
+      line-height: 1.65;
+      color: #444;
+    }
+
+    /* ── Callout ── */
+    .callout {
+      background: linear-gradient(135deg, #fef7f8, var(--giva-pink-light));
+      border-left: 4px solid var(--giva-pink);
+      border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+      padding: 24px;
+      margin: 28px 0;
+    }
+    .callout.navy {
+      background: linear-gradient(135deg, #f0f2f8, #dde1f0);
+      border-left-color: var(--giva-navy);
+    }
+    .callout.green {
+      background: var(--giva-green);
+      border-left-color: var(--giva-green-text);
+    }
+    .callout.green p { color: var(--giva-green-text); }
+    .callout.green strong { color: #1a5c1a; }
+    .callout p {
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--giva-dark);
+    }
+    .callout strong { color: var(--giva-navy); }
+
+    /* ── Requirements Table ── */
+    .req-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-top: 28px; }
+    .req-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      background: var(--giva-white);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      min-width: 600px;
+    }
+    .req-table thead th {
+      background: var(--giva-navy);
+      color: var(--giva-white);
+      padding: 14px 16px;
+      text-align: left;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .req-table tbody td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--giva-gray-mid);
+      vertical-align: top;
+    }
+    .req-table tbody tr:last-child td { border-bottom: none; }
+    .req-table tbody tr:hover { background: #fef7f8; }
+    .priority {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .priority.p0 { background: #ffe0e0; color: #c0392b; }
+    .priority.p1 { background: #fff3e0; color: #e67e22; }
+    .priority.p2 { background: #e8f4fd; color: #2980b9; }
+
+    /* ── Mobile requirement cards (replaces table on small screens) ── */
+    .req-cards { display: none; margin-top: 28px; }
+    .req-card {
+      background: var(--giva-white);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow-md);
+      border-left: 4px solid var(--giva-navy);
+    }
+    .req-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .req-card-id {
+      font-family: 'Figtree', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--giva-pink);
+      letter-spacing: 1px;
+    }
+    .req-card-title {
+      font-family: 'Figtree', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--giva-navy);
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+    .req-card-why {
+      font-size: 13px;
+      color: var(--giva-text-secondary);
+      line-height: 1.55;
+    }
+
+    /* ── User Story Cards ── */
+    .story-card {
+      background: var(--giva-white);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-md);
+      border-left: 4px solid var(--giva-pink);
+    }
+    .story-id {
+      font-family: 'Figtree', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--giva-pink);
+      margin-bottom: 6px;
+    }
+    .story-title {
+      font-family: 'Figtree', sans-serif;
+      font-size: clamp(17px, 2.5vw, 20px);
+      font-weight: 600;
+      color: var(--giva-navy);
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+    .story-as {
+      font-size: 14px;
+      font-style: italic;
+      color: var(--giva-text-secondary);
+      margin-bottom: 16px;
+      line-height: 1.6;
+      padding: 12px 14px;
+      background: var(--giva-gray);
+      border-radius: var(--radius);
+    }
+    .story-criteria { margin-top: 14px; }
+    .story-criteria h4 {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--giva-navy);
+      margin-bottom: 8px;
+    }
+    .story-criteria ul { padding-left: 18px; }
+    .story-criteria li {
+      font-size: 13px;
+      margin-bottom: 5px;
+      padding-left: 2px;
+      line-height: 1.55;
+      color: #444;
+    }
+    .story-current {
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: #fff0f0;
+      border-radius: var(--radius);
+      font-size: 12px;
+      color: #c0392b;
+      font-weight: 600;
+    }
+
+    /* ── Fix Cards ── */
+    .fix-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+      margin-top: 32px;
+    }
+    .fix-card {
+      background: var(--giva-white);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+    .fix-header {
+      background: var(--giva-navy);
+      color: var(--giva-white);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .fix-header h3 {
+      font-family: 'Figtree', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+    .fix-timeline-badge {
+      background: rgba(233,113,139,0.2);
+      color: var(--giva-rose);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .fix-body { padding: 20px; }
+    .fix-body p {
+      font-size: 14px;
+      line-height: 1.65;
+      color: #444;
+      margin-bottom: 12px;
+    }
+    .fix-done {
+      margin-top: 12px;
+      padding: 12px 14px;
+      background: var(--giva-green);
+      border-radius: var(--radius);
+      font-size: 13px;
+      color: var(--giva-green-text);
+      line-height: 1.5;
+    }
+    .fix-done strong { color: #1a5c1a; }
+
+    /* ── Metrics ── */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin-top: 28px;
+    }
+    .metric-card {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius-lg);
+      padding: 20px 16px;
+      text-align: center;
+    }
+    .metric-label {
+      font-size: 11px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 6px;
+      letter-spacing: 0.3px;
+      line-height: 1.4;
+    }
+    .metric-today {
+      font-family: 'Figtree', sans-serif;
+      font-size: clamp(24px, 4vw, 32px);
+      font-weight: 700;
+      color: var(--giva-rose);
+    }
+    .metric-target {
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+    .metric-target strong {
+      color: var(--giva-green);
+      font-weight: 700;
+    }
+
+    /* ── Summary ── */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 32px;
+    }
+    .summary-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .summary-num {
+      font-family: 'Figtree', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--giva-pink);
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .summary-text h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--giva-navy);
+      margin-bottom: 3px;
+    }
+    .summary-text p {
+      font-size: 12px;
+      color: var(--giva-text-secondary);
+      line-height: 1.5;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      background: var(--giva-navy);
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 36px var(--container-pad);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+    .footer strong { color: var(--giva-white); }
+    .footer-divider {
+      width: 36px;
+      height: 2px;
+      background: var(--giva-pink);
+      margin: 12px auto;
+      border-radius: 1px;
+    }
+
+    /* ── Prose ── */
+    .prose p {
+      font-size: 15px;
+      line-height: 1.75;
+      color: #444;
+      margin-bottom: 14px;
+    }
+    .prose p:last-child { margin-bottom: 0; }
+    .prose strong { color: var(--giva-navy); }
+    section.dark .prose p { color: rgba(255,255,255,0.75); }
+    section.dark .prose strong { color: var(--giva-white); }
+
+    /* ── Scroll Animations ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ════════════════════════════════
+       RESPONSIVE BREAKPOINTS
+       ════════════════════════════════ */
+
+    /* Tablet */
+    @media (max-width: 768px) {
+      :root {
+        --section-pad: 52px;
+        --container-pad: 20px;
+      }
+      .hero { padding: 64px var(--container-pad) 48px; }
+      .hero h1 br { display: none; }
+      .toc { margin: -20px 16px 0; padding: 20px; }
+      .toc-grid { grid-template-columns: 1fr 1fr; gap: 4px; }
+      .toc-item { padding: 8px 10px; font-size: 12px; }
+      .toc-num { font-size: 14px; min-width: 22px; }
+      .gallery-hero { grid-template-columns: 1fr 1fr; }
+      .gallery-3col { grid-template-columns: repeat(3, 1fr); }
+      .gallery-2col { grid-template-columns: 1fr 1fr; }
+      .persona-grid { grid-template-columns: 1fr; gap: 14px; }
+      .persona-card { padding: 22px 20px; }
+      .fix-grid { grid-template-columns: 1fr; }
+      .metrics-grid { grid-template-columns: repeat(3, 1fr); }
+      .summary-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+      .timeline { padding-left: 30px; }
+      .timeline-dot { left: -24px; width: 8px; height: 8px; }
+      .timeline::before { left: 11px; }
+    }
+
+    /* Mobile */
+    @media (max-width: 480px) {
+      :root {
+        --section-pad: 40px;
+        --container-pad: 16px;
+      }
+      body { font-size: 15px; }
+      .top-bar { font-size: 9px; padding: 8px 12px; letter-spacing: 0.8px; }
+      .top-bar span { margin: 0 4px; }
+      .hero { padding: 48px var(--container-pad) 36px; }
+      .hero-badge { font-size: 9px; padding: 5px 12px; margin-bottom: 16px; }
+      .hero-subtitle { font-size: 15px; margin-bottom: 24px; }
+      .hero-meta { gap: 10px; font-size: 12px; }
+      .hero-meta-item svg { width: 14px; height: 14px; }
+
+      .toc { margin: -16px 12px 0; padding: 16px; }
+      .toc h3 { font-size: 10px; margin-bottom: 10px; }
+      .toc-grid { grid-template-columns: 1fr; gap: 2px; }
+      .toc-item { padding: 8px 10px; font-size: 12px; }
+
+      /* Galleries: 2 columns on mobile for portrait, 1 for landscape */
+      .gallery-hero { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .gallery-3col { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+      .gallery-2col { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .gallery-caption { font-size: 9px; padding: 24px 8px 8px; }
+      .gallery { gap: 8px; margin-top: 24px; }
+
+      /* Show swipeable strip, hide grid on very small screens */
+      .image-strip { display: block; }
+      .image-strip-scroll {
+        display: flex;
+        gap: 10px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        padding: 4px 0 12px;
+        margin: 24px 0 0;
+      }
+      .image-strip-scroll::-webkit-scrollbar { display: none; }
+      .image-strip-item {
+        flex: 0 0 72vw;
+        scroll-snap-align: center;
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        aspect-ratio: 9/16;
+        position: relative;
+        background: var(--giva-gray);
+        box-shadow: var(--shadow-md);
+      }
+      .image-strip-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .image-strip-item .gallery-caption {
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        padding: 32px 12px 12px;
+        background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
+        color: #fff;
+        font-size: 11px;
+        font-weight: 700;
+      }
+      .strip-hint {
+        font-size: 11px;
+        color: var(--giva-text-secondary);
+        margin-top: 8px;
+        text-align: center;
+      }
+
+      .timeline { padding-left: 24px; }
+      .timeline-dot { left: -20px; width: 8px; height: 8px; border-width: 2px; }
+      .timeline::before { left: 9px; }
+      .timeline-item { margin-bottom: 28px; }
+      .timeline-desc { font-size: 14px; }
+
+      .persona-name { font-size: 18px; }
+      .persona-story { font-size: 13px; }
+
+      .callout { padding: 18px 16px; margin: 20px 0; }
+      .callout p { font-size: 14px; }
+
+      /* Requirements: cards on mobile */
+      .req-table-wrap { display: none; }
+      .req-cards { display: block; }
+
+      .story-card { padding: 20px 18px; margin-bottom: 14px; }
+      .story-as { font-size: 13px; padding: 10px 12px; }
+      .story-criteria li { font-size: 12px; }
+      .story-current { font-size: 11px; }
+
+      .fix-grid { grid-template-columns: 1fr; gap: 14px; }
+      .fix-header { padding: 14px 16px; }
+      .fix-header h3 { font-size: 14px; }
+      .fix-body { padding: 16px; }
+      .fix-body p { font-size: 13px; }
+      .fix-done { font-size: 12px; padding: 10px 12px; }
+
+      .metrics-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+      .metric-card { padding: 16px 12px; }
+      .metric-label { font-size: 10px; }
+
+      .summary-grid { grid-template-columns: 1fr; gap: 14px; }
+      .summary-num { font-size: 28px; }
+
+      .footer { padding: 28px 16px; font-size: 11px; }
+    }
+
+    /* Tiny screens */
+    @media (max-width: 360px) {
+      .gallery-3col { grid-template-columns: repeat(2, 1fr); }
+      .hero h1 { font-size: 28px; }
+      .metrics-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* Safe area for notched phones */
+    @supports (padding: env(safe-area-inset-bottom)) {
+      .footer { padding-bottom: calc(36px + env(safe-area-inset-bottom)); }
+      .top-bar { padding-top: calc(10px + env(safe-area-inset-top)); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  Product Experience Audit <span>&middot;</span> GIVA Store, Hyderabad Airport <span>&middot;</span> April 2025
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">Experience Audit + BRD + PRD</div>
+    <h1>The Product She Loved<br>But <em>Couldn't Find</em> Online</h1>
+    <p class="hero-subtitle">
+      A customer stood inside a GIVA store holding a tagged, barcoded, priced product and couldn't find it on any digital channel. Not the app. Not Google. Not even with the SKU. This document captures the experience, diagnoses the gap, and presents the fix.
+    </p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <svg width="16" height="16" fill="none" stroke="#E9718B" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        GIVA Store, Hyderabad Airport
+      </div>
+      <div class="hero-meta-item">
+        <svg width="16" height="16" fill="none" stroke="#E9718B" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        April 2025
+      </div>
+      <div class="hero-meta-item">
+        <svg width="16" height="16" fill="none" stroke="#E9718B" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Shivam Tiwari
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOC -->
+<div class="toc fade-up">
+  <h3>In This Document</h3>
+  <div class="toc-grid">
+    <a href="#experience" class="toc-item"><span class="toc-num">01</span> The Experience</a>
+    <a href="#personas" class="toc-item"><span class="toc-num">02</span> Who Is This Customer?</a>
+    <a href="#window" class="toc-item"><span class="toc-num">03</span> The Purchase Window</a>
+    <a href="#problem" class="toc-item"><span class="toc-num">04</span> The Business Problem</a>
+    <a href="#requirements" class="toc-item"><span class="toc-num">05</span> Business Requirements</a>
+    <a href="#stories" class="toc-item"><span class="toc-num">06</span> User Stories</a>
+    <a href="#roadmap" class="toc-item"><span class="toc-num">07</span> The Fix Roadmap</a>
+    <a href="#metrics" class="toc-item"><span class="toc-num">08</span> Success Metrics</a>
+  </div>
+</div>
+
+<!-- PART 1: THE EXPERIENCE -->
+<section id="experience" style="padding-top: 80px;">
+  <div class="container">
+    <div class="section-label fade-up">Part 1</div>
+    <h2 class="section-title fade-up">The Experience, As It Happened</h2>
+    <p class="section-subtitle fade-up">6:20 PM. GIVA Store, Hyderabad Airport. A mangalsutra catches the customer's eye.</p>
+
+    <!-- Store + Product hero images -->
+    <div class="gallery gallery-hero fade-up" style="margin-top: 28px;">
+      <div class="gallery-item landscape">
+        <img src="images/Giva%20images/WhatsApp%20Image%202026-04-06%20at%2012.14.07.jpeg" alt="GIVA Store at Hyderabad Airport" loading="lazy">
+        <div class="gallery-caption">GIVA Store, Hyderabad Airport</div>
+      </div>
+      <div class="gallery-item landscape">
+        <img src="images/Giva%20images/WhatsApp%20Image%202026-04-06%20at%2012.14.06%20(2).jpeg" alt="Gold Komal Mangalsutra on display" loading="lazy">
+        <div class="gallery-caption">Gold Komal Lab Grown Diamond Mangalsutra</div>
+      </div>
+    </div>
+
+    <div class="prose" style="margin-top: 32px;">
+      <p class="fade-up">The store is clean, well-lit, thoughtfully designed. A mangalsutra catches the customer's eye: the <strong>Gold Komal Lab Grown Diamond Mangalsutra</strong>, sitting on a burgundy velvet bust. It's delicate. The pendant has a diamond X motif with hanging chains. It feels like the right price band. The customer wants to buy it, but not alone. Their partner isn't there.</p>
+      <p class="fade-up">So begins the attempt to bring the product into the digital world.</p>
+    </div>
+
+    <!-- Timeline -->
+    <div class="timeline" style="margin-top: 40px;">
+      <div class="timeline-item fade-up">
+        <div class="timeline-dot"></div>
+        <div class="timeline-time">Attempt 1: Text Search on GIVA App</div>
+        <div class="timeline-title">Searched the product name. Got 77 results. Then 100. None were the piece.</div>
+        <div class="timeline-desc">The sales associate provided the product name. The customer typed "Gold Komal Lab Grown Diamond Mangalsutra" into the GIVA app's search bar. The app returned 77 results, then 100 on a broader search. Studs, rings, pendants. None of them the mangalsutra they were holding.</div>
+        <span class="timeline-result fail">Product not found</span>
+      </div>
+
+      <div class="timeline-item fade-up">
+        <div class="timeline-dot"></div>
+        <div class="timeline-time">Attempt 2: SKU Search</div>
+        <div class="timeline-title">Typed GDLNE0113. Zero results.</div>
+        <div class="timeline-desc">The associate pointed to the tag. It read: <strong>GDLNE0113</strong>. Clear barcode. Clean print. The customer typed it into the search bar. <em>"No results found for GDLNE0113."</em> The product physically in their hand, tagged, barcoded, priced at ₹46,964 on the store's POS, returns zero results.</div>
+        <span class="timeline-result fail">Zero results for valid SKU</span>
+      </div>
+
+      <div class="timeline-item fade-up">
+        <div class="timeline-dot"></div>
+        <div class="timeline-time">Attempt 3: Google Lens</div>
+        <div class="timeline-title">Google knows it's GIVA. But can't find the product.</div>
+        <div class="timeline-desc">The associate suggests: "Scan it on Google, it'll take you to our site." Google Lens correctly identifies the brand. It surfaces similar mangalsutras at ₹43,772 and ₹54,213, but not this piece. The customer is now looking at competing products within the GIVA catalog.</div>
+        <span class="timeline-result partial">Brand identified, product not matched</span>
+      </div>
+
+      <div class="timeline-item fade-up">
+        <div class="timeline-dot"></div>
+        <div class="timeline-time">Attempt 4: POS Lookup (Internal)</div>
+        <div class="timeline-title">The product exists perfectly inside the staff system.</div>
+        <div class="timeline-desc">The associate turns the store laptop around. There it is: Gold Komal Lab Grown Diamond Mangalsutra. Gold weight: 2.4g. Gold price: ₹21,170. Making charges: ₹20,350. Total: ₹46,964. Every data point, perfectly structured, sitting in GIVA's internal POS. <strong>The product exists. The data is rich. The customer just can't see any of it.</strong></div>
+        <span class="timeline-result fail">Data exists but is invisible to customers</span>
+      </div>
+    </div>
+
+    <!-- Evidence gallery (desktop: grid, mobile: swipeable strip) -->
+    <div style="margin-top: 44px;">
+      <h3 style="font-family:'Figtree',sans-serif; font-size:15px; font-weight:600; color:var(--giva-navy); margin-bottom:16px; letter-spacing:0.3px;" class="fade-up">The Evidence: Screenshots from the Journey</h3>
+
+      <!-- Desktop/tablet grid -->
+      <div class="gallery gallery-3col fade-up desktop-gallery">
+        <div class="gallery-item">
+          <img src="images/Giva%20images/WhatsApp%20Image%202026-04-06%20at%2012.14.05.jpeg" alt="Product SKU tag GDLNE0113" loading="lazy">
+          <div class="gallery-caption">SKU Tag: GDLNE0113</div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/Giva%20images/WhatsApp%20Image%202026-04-06%20at%2012.14.05%20(1).jpeg" alt="No results found for GDLNE0113" loading="lazy">
+          <div class="gallery-caption">App Search: Zero Results</div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/Giva%20images/WhatsApp%20Image%202026-04-06%20at%2012.14.02.jpeg" alt="Google Lens search results" loading="lazy">
+          <div class="gallery-caption">Google Lens: Near Matches Only</div>
+        </div>
+      </div>
+      <div class="gallery gallery-3col fade-up desktop-gallery" style="margin-top: 12px;">
+        <div class="gallery-item">
+          <img src="images/Giva%20images/WhatsApp%20Image%202026-04-06%20at%2012.14.03.jpeg" alt="Google Lens second scan" loading="lazy">
+          <div class="gallery-caption">Google Lens: Second Attempt</div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/Giva%20images/WhatsApp%20Image%202026-04-06%20at%2012.14.06.jpeg" alt="GIVA app 100 results" loading="lazy">
+          <div class="gallery-caption">App: 100 Results, None Matching</div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/Giva%20images/WhatsApp%20Image%202026-04-06%20at%2012.14.06%20(1).jpeg" alt="Second tag B3214294" loading="lazy">
+          <div class="gallery-caption">Second Tag: B3214294, Also Unsearchable</div>
+        </div>
+      </div>
+      <div class="gallery gallery-2col fade-up desktop-gallery" style="margin-top: 12px;">
+        <div class="gallery-item landscape">
+          <img src="images/Giva%20images/WhatsApp%20Image%202026-04-06%20at%2012.14.05%20(3).jpeg" alt="POS system" loading="lazy">
+          <div class="gallery-caption">POS System: Full Product Data, Staff Only</div>
+        </div>
+        <div class="gallery-item landscape">
+          <img src="images/Giva%20images/WhatsApp%20Image%202026-04-06%20at%2012.14.05%20(2).jpeg" alt="GIVA app 77 results" loading="lazy">
+          <div class="gallery-caption">App: 77 Mangalsutras, None Is the One in Hand</div>
+        </div>
+      </div>
+
+      <!-- Mobile swipeable strip -->
+      <div class="image-strip fade-up">
+        <div class="image-strip-scroll">
+          <div class="image-strip-item">
+            <img src="images/Giva%20images/WhatsApp%20Image%202026-04-06%20at%2012.14.05.jpeg" alt="SKU tag" loading="lazy">
+            <div class="gallery-caption">SKU Tag: GDLNE0113</div>
+          </div>
+          <div class="image-strip-item">
+            <img src="images/Giva%20images/WhatsApp%20Image%202026-04-06%20at%2012.14.05%20(1).jpeg" alt="No results" loading="lazy">
+            <div class="gallery-caption">App Search: Zero Results</div>
+          </div>
+          <div class="image-strip-item">
+            <img src="images/Giva%20images/WhatsApp%20Image%202026-04-06%20at%2012.14.02.jpeg" alt="Google Lens" loading="lazy">
+            <div class="gallery-caption">Google Lens: Near Matches Only</div>
+          </div>
+          <div class="image-strip-item">
+            <img src="images/Giva%20images/WhatsApp%20Image%202026-04-06%20at%2012.14.03.jpeg" alt="Lens attempt 2" loading="lazy">
+            <div class="gallery-caption">Google Lens: Second Attempt</div>
+          </div>
+          <div class="image-strip-item">
+            <img src="images/Giva%20images/WhatsApp%20Image%202026-04-06%20at%2012.14.06.jpeg" alt="100 results" loading="lazy">
+            <div class="gallery-caption">App: 100 Results, None Matching</div>
+          </div>
+          <div class="image-strip-item">
+            <img src="images/Giva%20images/WhatsApp%20Image%202026-04-06%20at%2012.14.06%20(1).jpeg" alt="Second tag" loading="lazy">
+            <div class="gallery-caption">Second Tag: Also Unsearchable</div>
+          </div>
+          <div class="image-strip-item" style="aspect-ratio: 4/3;">
+            <img src="images/Giva%20images/WhatsApp%20Image%202026-04-06%20at%2012.14.05%20(3).jpeg" alt="POS system" loading="lazy">
+            <div class="gallery-caption">POS: Full Data, Staff Only</div>
+          </div>
+          <div class="image-strip-item" style="aspect-ratio: 9/16;">
+            <img src="images/Giva%20images/WhatsApp%20Image%202026-04-06%20at%2012.14.05%20(2).jpeg" alt="77 results" loading="lazy">
+            <div class="gallery-caption">77 Mangalsutras, None Is It</div>
+          </div>
+        </div>
+        <div class="strip-hint">Swipe to see all evidence &rarr;</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PART 2.1: PERSONAS -->
+<section id="personas" class="alt">
+  <div class="container">
+    <div class="section-label fade-up">Part 2: Business Requirements</div>
+    <h2 class="section-title fade-up">Who Is This Customer, Really?</h2>
+    <p class="section-subtitle fade-up">Before jumping to fixes, it's worth understanding who was standing in that store. This isn't an edge case. This is GIVA's core buyer.</p>
+
+    <div class="persona-grid">
+      <div class="persona-card fade-up">
+        <div class="persona-tag">Primary Persona</div>
+        <div class="persona-name">The Considerate Buyer</div>
+        <div class="persona-demo">28 to 38, urban, emotionally invested in the purchase</div>
+        <div class="persona-story">
+          She's buying a mangalsutra, an emotionally loaded purchase. The decision involves someone else: a partner, a mother, a sister. She <strong>will not buy something this personal on the spot</strong> without consultation.<br><br>
+          She discovers in-store, where the tactile experience matters. But she decides online or in conversation. She'll photograph it, share it on WhatsApp, check reviews, maybe sleep on it. <strong>This is not a weakness in her buying behavior. It IS her buying behavior.</strong> Any brand that doesn't accommodate this loop loses her at the "share it" step.
+        </div>
+      </div>
+
+      <div class="persona-card fade-up">
+        <div class="persona-tag">Secondary Persona</div>
+        <div class="persona-name">The Gift Buyer</div>
+        <div class="persona-demo">30 to 45, 40 minutes before a flight, wants something meaningful</div>
+        <div class="persona-story">
+          He walked into the airport store because he has 40 minutes and wants to buy something meaningful for his wife. He liked the piece. But ₹46,964 is not a walk-away spend.<br><br>
+          He wants to verify the price online, check exchange policy, maybe save it to buy when he lands and his wife can confirm. <strong>He needs a product link. He cannot get one.</strong> He boards the flight. The purchase never happens.
+        </div>
+      </div>
+
+      <div class="persona-card fade-up">
+        <div class="persona-tag">Tertiary Persona</div>
+        <div class="persona-name">The Researcher</div>
+        <div class="persona-demo">25 to 35, found GIVA on Instagram, validating in-store</div>
+        <div class="persona-story">
+          She found GIVA on Instagram. She walks into the airport store, sees the exact piece she imagined. She wants to find the product on Google, read the lab-grown diamond certification, share it with her sister.<br><br>
+          She scans with Google Lens. Gets near-matches. <strong>Leaves without a product link.</strong> By the time she lands, the emotional peak has passed.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PART 2.2: EMOTIONAL WINDOW -->
+<section id="window" class="pink">
+  <div class="container">
+    <div class="section-label fade-up">The Core Insight</div>
+    <h2 class="section-title fade-up">The Emotional Purchase Window</h2>
+    <div class="prose" style="margin-top: 20px;">
+      <p class="fade-up">In jewellery retail, there is a window, typically <strong>2 to 48 hours</strong>, during which the emotional connection to a piece is strongest. The customer saw it, touched it, imagined wearing it. That window is the highest-converting moment in the entire purchase journey.</p>
+      <p class="fade-up">What GIVA needs in that window is <strong>frictionless digital handoff</strong>: the ability to move the experience from physical to digital without any gap, so the emotional peak carries through to purchase.</p>
+    </div>
+    <div class="callout navy fade-up">
+      <p>What GIVA has instead is a <strong>dead end</strong>. The customer tries every channel available to them and hits a wall. By the time they find the product, if they ever do, the emotional peak has cooled. The purchase that was nearly certain becomes uncertain.<br><br><strong>This is not a minor UX inconvenience. This is a revenue leak at the highest-intent moment in the customer journey.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- PART 2.3: UNDERLYING PROBLEM -->
+<section id="problem">
+  <div class="container">
+    <div class="section-label fade-up">Diagnosis</div>
+    <h2 class="section-title fade-up">The Underlying Business Problem</h2>
+    <div class="prose" style="margin-top: 20px;">
+      <p class="fade-up">GIVA has built <strong>excellent internal infrastructure</strong>. The POS system has structured, detailed product data: weight, pricing components, certification, GST breakdowns. This is the hard part. Most jewellery brands can't do this cleanly. GIVA can.</p>
+      <p class="fade-up">The gap is entirely in the <strong>last mile</strong>, specifically the sync between internal catalog and customer-facing discovery surfaces. Three surfaces are broken:</p>
+    </div>
+
+    <div class="persona-grid" style="margin-top: 24px;">
+      <div class="persona-card fade-up" style="border-top-color: #c0392b;">
+        <div class="persona-tag" style="color: #c0392b;">Surface 1: Broken</div>
+        <div class="persona-name">GIVA App Search</div>
+        <div class="persona-story">SKUs are not indexed as searchable fields. Product names return broad category results rather than exact matches. The search experience behaves like a <strong>category browser, not a product finder</strong>.</div>
+      </div>
+      <div class="persona-card fade-up" style="border-top-color: #e67e22;">
+        <div class="persona-tag" style="color: #e67e22;">Surface 2: Broken</div>
+        <div class="persona-name">Google Shopping / Lens</div>
+        <div class="persona-story">Product pages are either not submitted to Google Merchant Center or the feed is incomplete. Google Lens <strong>cannot match a photographed product to a specific GIVA page</strong>. It can only identify the brand.</div>
+      </div>
+      <div class="persona-card fade-up" style="border-top-color: #7f8c8d;">
+        <div class="persona-tag" style="color: #7f8c8d;">Surface 3: Missing</div>
+        <div class="persona-name">Physical-to-Digital Bridge</div>
+        <div class="persona-story">The tag has a barcode (for POS) but <strong>no QR code for customer use</strong>. No mechanism for a customer to self-serve a digital connection to the product they're holding. Everything depends on the associate.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PART 2.4: BUSINESS REQUIREMENTS -->
+<section id="requirements" class="alt">
+  <div class="container">
+    <div class="section-label fade-up">Requirements</div>
+    <h2 class="section-title fade-up">Business Requirements</h2>
+    <p class="section-subtitle fade-up">Six requirements, ordered by priority, that close the loop between physical discovery and digital conversion.</p>
+
+    <!-- Desktop table -->
+    <div class="req-table-wrap fade-up">
+      <table class="req-table">
+        <thead>
+          <tr>
+            <th style="width:60px;">#</th>
+            <th>Requirement</th>
+            <th>Why It Matters</th>
+            <th style="width:72px;">Priority</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>BR-01</strong></td>
+            <td><strong>SKU search must return exact match</strong> on app and website</td>
+            <td>The product tag has a SKU. The customer used it. It returned nothing. This is the highest-intent search a customer will ever make.</td>
+            <td><span class="priority p0">P0</span></td>
+          </tr>
+          <tr>
+            <td><strong>BR-02</strong></td>
+            <td><strong>Every product must have a QR code</strong> linking to its product page</td>
+            <td>Removes dependency on associate, works for solo shoppers, works when the store is busy.</td>
+            <td><span class="priority p0">P0</span></td>
+          </tr>
+          <tr>
+            <td><strong>BR-03</strong></td>
+            <td><strong>Google Shopping feed</strong> must include all SKUs with rich product data</td>
+            <td>Controls the discovery narrative when customers search, price-compare, or use Lens.</td>
+            <td><span class="priority p1">P1</span></td>
+          </tr>
+          <tr>
+            <td><strong>BR-04</strong></td>
+            <td><strong>Associate WhatsApp send</strong>: product link in under 30 seconds</td>
+            <td>Converts browsing intent into a trackable, closable lead.</td>
+            <td><span class="priority p1">P1</span></td>
+          </tr>
+          <tr>
+            <td><strong>BR-05</strong></td>
+            <td><strong>Frictionless share and save</strong> options on product page</td>
+            <td>The decision happens in conversation with a partner. Give customers the tools for that conversation.</td>
+            <td><span class="priority p1">P1</span></td>
+          </tr>
+          <tr>
+            <td><strong>BR-06</strong></td>
+            <td><strong>Consistent pricing</strong> across in-store and online</td>
+            <td>Trust breaks if the product is found online at a different price.</td>
+            <td><span class="priority p2">P2</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Mobile cards -->
+    <div class="req-cards fade-up">
+      <div class="req-card">
+        <div class="req-card-header"><span class="req-card-id">BR-01</span><span class="priority p0">P0</span></div>
+        <div class="req-card-title">SKU search must return exact match on app and website</div>
+        <div class="req-card-why">The product tag has a SKU. The customer used it. It returned nothing. This is the highest-intent search a customer will ever make.</div>
+      </div>
+      <div class="req-card">
+        <div class="req-card-header"><span class="req-card-id">BR-02</span><span class="priority p0">P0</span></div>
+        <div class="req-card-title">Every product must have a QR code linking to its product page</div>
+        <div class="req-card-why">Removes dependency on associate, works for solo shoppers, works when the store is busy.</div>
+      </div>
+      <div class="req-card">
+        <div class="req-card-header"><span class="req-card-id">BR-03</span><span class="priority p1">P1</span></div>
+        <div class="req-card-title">Google Shopping feed must include all SKUs with rich product data</div>
+        <div class="req-card-why">Controls the discovery narrative when customers search, price-compare, or use Lens.</div>
+      </div>
+      <div class="req-card">
+        <div class="req-card-header"><span class="req-card-id">BR-04</span><span class="priority p1">P1</span></div>
+        <div class="req-card-title">Associate WhatsApp send: product link in under 30 seconds</div>
+        <div class="req-card-why">Converts browsing intent into a trackable, closable lead.</div>
+      </div>
+      <div class="req-card">
+        <div class="req-card-header"><span class="req-card-id">BR-05</span><span class="priority p1">P1</span></div>
+        <div class="req-card-title">Frictionless share and save options on product page</div>
+        <div class="req-card-why">The decision happens in conversation with a partner. Give customers the tools for that conversation.</div>
+      </div>
+      <div class="req-card">
+        <div class="req-card-header"><span class="req-card-id">BR-06</span><span class="priority p2">P2</span></div>
+        <div class="req-card-title">Consistent pricing across in-store and online</div>
+        <div class="req-card-why">Trust breaks if the product is found online at a different price.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PART 3: USER STORIES -->
+<section id="stories">
+  <div class="container">
+    <div class="section-label fade-up">Part 3: Product Requirements</div>
+    <h2 class="section-title fade-up">User Stories</h2>
+    <p class="section-subtitle fade-up">Five stories that capture every broken moment in the journey and what "done" looks like.</p>
+
+    <div style="margin-top: 32px;">
+      <div class="story-card fade-up">
+        <div class="story-id">US-01</div>
+        <div class="story-title">The SKU Search</div>
+        <div class="story-as">As a customer standing in a GIVA store, I want to type the SKU from the product tag into the GIVA app and be taken directly to that product page, so that I can save it, share it, and buy it later without depending on the sales associate.</div>
+        <div class="story-criteria">
+          <h4>Acceptance Criteria</h4>
+          <ul>
+            <li>Typing any valid SKU returns the exact product as the first result</li>
+            <li>Result loads within 2 seconds</li>
+            <li>Product page has a "Save to Wishlist" option that does not require login</li>
+          </ul>
+        </div>
+        <div class="story-current">Current state: Zero results returned for GDLNE0113.</div>
+      </div>
+
+      <div class="story-card fade-up">
+        <div class="story-id">US-02</div>
+        <div class="story-title">The QR Scan</div>
+        <div class="story-as">As a customer who doesn't know the product name or SKU, I want to point my phone camera at the tag and be taken to the product page, so I can browse without needing to ask for help.</div>
+        <div class="story-criteria">
+          <h4>Acceptance Criteria</h4>
+          <ul>
+            <li>Every product tag has a QR code</li>
+            <li>QR code deep-links to giva.co/products/[SKU]</li>
+            <li>Product page loads correctly on mobile with a share button above the fold</li>
+          </ul>
+        </div>
+        <div class="story-current">Current state: No QR code on any product tag. Barcode requires a dedicated scanner app.</div>
+      </div>
+
+      <div class="story-card fade-up">
+        <div class="story-id">US-03</div>
+        <div class="story-title">The Partner Share</div>
+        <div class="story-as">As a customer who wants to consult my partner before buying, I want to share the exact product with image, description, and price via WhatsApp in one tap, so we can decide together even if I'm at the airport.</div>
+        <div class="story-criteria">
+          <h4>Acceptance Criteria</h4>
+          <ul>
+            <li>Product page has a WhatsApp share button pre-populating name, image, price, and URL</li>
+            <li>Shared link opens to a mobile-optimized product page</li>
+            <li>Page includes "Buy Online" and "Find in Store" CTAs</li>
+          </ul>
+        </div>
+        <div class="story-current">Current state: No product page the customer can navigate to. No share mechanism.</div>
+      </div>
+
+      <div class="story-card fade-up">
+        <div class="story-id">US-04</div>
+        <div class="story-title">The Associate Assist</div>
+        <div class="story-as">As a GIVA sales associate, I want to scan a product on the POS and send its product link directly to a customer's WhatsApp, so warm leads don't go cold when the customer walks out.</div>
+        <div class="story-criteria">
+          <h4>Acceptance Criteria</h4>
+          <ul>
+            <li>POS has a "Send to Customer" button on every product view</li>
+            <li>Associate enters phone number, taps send</li>
+            <li>Customer receives WhatsApp message with product card within 30 seconds</li>
+            <li>Each send is logged as a lead against the store location</li>
+          </ul>
+        </div>
+        <div class="story-current">Current state: Associates have no mechanism to do this.</div>
+      </div>
+
+      <div class="story-card fade-up">
+        <div class="story-id">US-05</div>
+        <div class="story-title">The Google Lens Discovery</div>
+        <div class="story-as">As a customer who saw a GIVA piece at a friend's home or event, I want to scan it with my phone and be taken to the exact product page, so I can buy it without knowing the name.</div>
+        <div class="story-criteria">
+          <h4>Acceptance Criteria</h4>
+          <ul>
+            <li>Google Lens surfaces the correct product page in the top 3 results</li>
+            <li>Product pages have Product schema markup (JSON-LD)</li>
+            <li>Google Merchant Center feed is current and includes all active SKUs</li>
+          </ul>
+        </div>
+        <div class="story-current">Current state: Google Lens identifies the brand but cannot surface the specific product.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PART 3.3: FIX ROADMAP -->
+<section id="roadmap" class="beige">
+  <div class="container">
+    <div class="section-label fade-up">The Roadmap</div>
+    <h2 class="section-title fade-up">Four Fixes. Three Weeks. Two Engineers.</h2>
+    <p class="section-subtitle fade-up">Modern AI-assisted engineering makes these fixes dramatically faster than traditional timelines. Here's the path.</p>
+
+    <div class="fix-grid">
+      <div class="fix-card fade-up">
+        <div class="fix-header">
+          <h3>Fix 1: SKU Search Indexing</h3>
+          <span class="fix-timeline-badge">Days, not weeks</span>
+        </div>
+        <div class="fix-body">
+          <p>The GIVA app's search layer (likely Algolia, Elasticsearch, or Shopify-native) doesn't include SKU as a searchable field in its index schema.</p>
+          <p>This is not a feature build. It's a <strong>configuration fix</strong> followed by a data sync. Identify the search index config, add SKU to searchable fields, re-index, verify with sample SKUs, deploy.</p>
+          <div class="fix-done"><strong>Done looks like:</strong> Type GDLNE0113 into the GIVA app and Gold Komal Lab Grown Diamond Mangalsutra appears as result #1.</div>
+        </div>
+      </div>
+
+      <div class="fix-card fade-up">
+        <div class="fix-header">
+          <h3>Fix 2: QR Codes on Tags</h3>
+          <span class="fix-timeline-badge">Days, operationally</span>
+        </div>
+        <div class="fix-body">
+          <p>URL structure: <code>giva.co/p/GDLNE0113</code> redirects to the full product page. Build the redirect middleware (under an hour), then update the tag print template with QR code. For existing inventory, a sticker run works.</p>
+          <p>Product page additions: WhatsApp share button, wishlist save (no login required), "Find in Store" CTA.</p>
+          <div class="fix-done"><strong>Done looks like:</strong> Customer points camera at tag, lands on product page, shares to WhatsApp in one tap.</div>
+        </div>
+      </div>
+
+      <div class="fix-card fade-up">
+        <div class="fix-header">
+          <h3>Fix 3: WhatsApp Lead Capture</h3>
+          <span class="fix-timeline-badge">1 to 2 weeks</span>
+        </div>
+        <div class="fix-body">
+          <p><strong>Highest-ROI feature in this document.</strong> Every store visit that doesn't convert in-person is a lead. Right now, GIVA captures none of them.</p>
+          <p>WhatsApp Business API + a "Send to Customer" button on the POS. Associate enters phone number, customer gets WhatsApp message with product card, GIVA has a logged, trackable lead.</p>
+          <p style="font-size:12px; color:var(--giva-text-secondary);">Non-engineering dependency: WhatsApp template approval takes 3 to 5 business days. Apply immediately.</p>
+          <div class="fix-done"><strong>Done looks like:</strong> Associate scans, enters number, customer gets product card on WhatsApp, lead logged.</div>
+        </div>
+      </div>
+
+      <div class="fix-card fade-up">
+        <div class="fix-header">
+          <h3>Fix 4: Google Shopping Feed</h3>
+          <span class="fix-timeline-badge">1 to 2 weeks</span>
+        </div>
+        <div class="fix-body">
+          <p><strong>Layer A:</strong> Automated product feed export to Google Merchant Center, mapping SKU, name, price, image, availability, and GTIN. Google Shopping listings appear within days.</p>
+          <p><strong>Layer B:</strong> JSON-LD structured data on every product page: name, SKU, brand, image, offers. One-time template change that applies across all pages.</p>
+          <div class="fix-done"><strong>Done looks like:</strong> Google Lens scan of any GIVA piece surfaces the GIVA product page in results.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUCCESS METRICS -->
+<section id="metrics" class="dark">
+  <div class="container">
+    <div class="section-label fade-up">Measuring Success</div>
+    <h2 class="section-title fade-up">Success Metrics</h2>
+    <p class="section-subtitle fade-up">Where we are today, and where these fixes take us.</p>
+
+    <div class="metrics-grid fade-up">
+      <div class="metric-card">
+        <div class="metric-label">SKU Search Success Rate</div>
+        <div class="metric-today">~0%</div>
+        <div class="metric-target">30-day: <strong>&gt;95%</strong></div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">In-Store QR Scans</div>
+        <div class="metric-today">0</div>
+        <div class="metric-target">90-day: <strong>15%+ of footfall</strong></div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">WhatsApp Leads from POS</div>
+        <div class="metric-today">0</div>
+        <div class="metric-target">90-day: <strong>20%+ of visits</strong></div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Google Lens Match Rate</div>
+        <div class="metric-today">~0%</div>
+        <div class="metric-target">90-day: <strong>80%+ of SKUs</strong></div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Product Link Conversion</div>
+        <div class="metric-today">N/A</div>
+        <div class="metric-target">90-day: <strong>&gt;12% in 7 days</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUMMARY -->
+<section style="padding: var(--section-pad) 0;">
+  <div class="container">
+    <div class="section-label fade-up">The One-Page Summary</div>
+    <h2 class="section-title fade-up">For the Team</h2>
+
+    <div class="callout fade-up" style="margin-top: 24px;">
+      <p><strong>What's broken:</strong> A customer in your store, holding your product, cannot find it on your app, your website, or Google. This is the highest-intent moment in their purchase journey and it's a dead end.</p>
+    </div>
+
+    <div class="callout navy fade-up">
+      <p><strong>What's not broken:</strong> Your internal data. Your POS has everything: weight, price components, certification, SKU. The product exists perfectly in your system. It just doesn't reach the customer.</p>
+    </div>
+
+    <div class="section-label fade-up" style="margin-top: 40px;">What Needs to Happen</div>
+    <div class="summary-grid fade-up">
+      <div class="summary-item">
+        <div class="summary-num">1</div>
+        <div class="summary-text">
+          <h4>SKU Search on App</h4>
+          <p>Fix the search index. Ship in days.</p>
+        </div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-num">2</div>
+        <div class="summary-text">
+          <h4>QR Code on Every Tag</h4>
+          <p>Build the redirect, update print template. Days.</p>
+        </div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-num">3</div>
+        <div class="summary-text">
+          <h4>WhatsApp Send from POS</h4>
+          <p>Integrate Business API, add the button. 1 to 2 weeks.</p>
+        </div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-num">4</div>
+        <div class="summary-text">
+          <h4>Google Shopping Feed</h4>
+          <p>Export catalog, submit to Merchant Center. 1 to 2 weeks.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout green fade-up" style="margin-top: 32px;">
+      <p>All four fixes can be scoped, built, and shipped in <strong>under three weeks</strong> by a focused team of two engineers and one PM. The revenue case is simple: every customer who leaves a GIVA store without a product link is a lead that was never captured. Every Google Lens scan that lands on a competitor is traffic GIVA paid to acquire and then handed away. <strong>The fix cost is days of engineering. The upside is a permanently closed loop between physical discovery and digital conversion.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="footer">
+  <strong>GIVA Store Experience Audit</strong>
+  <div class="footer-divider"></div>
+  Prepared by Shivam Tiwari &middot; April 2025<br>
+  Hyderabad Airport Store Visit &middot; Gold Komal Lab Grown Diamond Mangalsutra (GDLNE0113)
+</div>
+
+<!-- SCROLL ANIMATIONS + MOBILE GALLERY TOGGLE -->
+<script>
+  // Intersection Observer for fade-up animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, {
+    threshold: 0.08,
+    rootMargin: '0px 0px -30px 0px'
+  });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // On mobile (<=480px), hide desktop gallery grids and show strip
+  function handleGalleryToggle() {
+    const isMobile = window.innerWidth <= 480;
+    document.querySelectorAll('.desktop-gallery').forEach(el => {
+      el.style.display = isMobile ? 'none' : '';
+    });
+  }
+  handleGalleryToggle();
+  window.addEventListener('resize', handleGalleryToggle);
+</script>
+
+</body>
+</html>
